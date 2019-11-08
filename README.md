@@ -1,6 +1,6 @@
 # weibo-spider
 
-## 微博爬虫
+## 微博相册爬虫
 首先分别运行以下命令来安装 PySide2，requests。
 
 ```bash
