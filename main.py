@@ -12,17 +12,17 @@ from dowloader import (get_album_dict, get_all_pic, get_one, get_uid,
                        get_username)
 
 
-#下载所有相册图片
+# 下载所有相册图片
 class Thread(QThread):
     pathSignal = Signal(str)
     statusSignal = Signal(str)
     progressSignal = Signal(int)
-    finishSignal1 =  Signal()
-    def __init__(self,url,path):
-        super(Thread,self).__init__()
+    finishSignal1 = Signal()
+
+    def __init__(self, url, path):
+        super(Thread, self).__init__()
         self.url = url
         self.path = path
-
 
     def run(self):
         os.chdir(self.path)
@@ -41,14 +41,15 @@ class Thread(QThread):
         self.finishSignal1.emit()
 
 
-#进下载微博相册图片
+# 进下载微博相册图片
 class Thread2(QThread):
     pathSignal = Signal(str)
     statusSignal = Signal(str)
     progressSignal = Signal(int)
-    finishSignal2 =  Signal()
-    def __init__(self,url,path):
-        super(Thread2,self).__init__()
+    finishSignal2 = Signal()
+
+    def __init__(self, url, path):
+        super(Thread2, self).__init__()
         self.url = url
         self.path = path
 
@@ -68,7 +69,6 @@ class Thread2(QThread):
         self.finishSignal2.emit()
 
 
-
 class Form(QWidget):
 
     def __init__(self, parent=None):
@@ -76,7 +76,7 @@ class Form(QWidget):
         # Create widgets
         self.setWindowTitle("微博相册下载")
         self.setWindowIcon(QIcon('assets/icon.png'))
-        self.setFixedSize(380,220)
+        self.setFixedSize(380, 220)
         self.labelPosition = QLabel('路径:')
         self.labelUrl = QLabel('链接:')
         self.editPosition = QLineEdit('.')
@@ -110,15 +110,16 @@ class Form(QWidget):
         self.buttonAll.clicked.connect(self.all_album)
         self.buttonOne.clicked.connect(self.single_album)
         self.buttonExplorer.clicked.connect(self.chooseDirectory)
-        
+
     def chooseDirectory(self):
-        choosed_path = QFileDialog.getExistingDirectory(self,"选择下载位置")
+        choosed_path = QFileDialog.getExistingDirectory(self, "选择下载位置")
         self.editPosition.setText(choosed_path)
 
     def all_album(self):
         self.buttonOne.setDisabled(True)
         self.buttonAll.setDisabled(True)
-        self.weibo_thread = Thread(self.editUrl.text(),self.editPosition.text())
+        self.weibo_thread = Thread(
+            self.editUrl.text(), self.editPosition.text())
         self.weibo_thread.finishSignal1.connect(self.thread_finished)
         self.weibo_thread.pathSignal.connect(self.pathLabel.setText)
         self.weibo_thread.progressSignal.connect(self.statusProgress.setValue)
@@ -128,7 +129,8 @@ class Form(QWidget):
     def single_album(self):
         self.buttonOne.setDisabled(True)
         self.buttonAll.setDisabled(True)
-        self.single_thread = Thread2(self.editUrl.text(),self.editPosition.text())
+        self.single_thread = Thread2(
+            self.editUrl.text(), self.editPosition.text())
         self.single_thread.finishSignal2.connect(self.thread_finished)
         self.single_thread.pathSignal.connect(self.pathLabel.setText)
         self.single_thread.progressSignal.connect(self.statusProgress.setValue)
