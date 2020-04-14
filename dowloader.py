@@ -1,12 +1,13 @@
-import re
-import os
 import json
+import os
+import re
 import subprocess
-import requests
 from math import ceil
 
-#从文件 "cookie.json" 中获取 cookie 和 User-Agent 信息，并添加到变量 header 中
-with open("cookie.json", "r") as e:
+import requests
+
+#从文件 "config.json" 中获取 cookie 和 User-Agent 信息，并添加到变量 header 中
+with open("config.json", "r") as e:
 	header_settings = json.load(e)
 	user_agent = header_settings["user_agent"]
 	cookie = header_settings["cookie"]

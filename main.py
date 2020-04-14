@@ -1,11 +1,15 @@
 import os
 import sys
+
 import requests
-from weibo import *
+from PySide2.QtCore import QThread, Signal
 from PySide2.QtGui import QIcon
-from PySide2.QtCore import QThread,Signal
-from PySide2.QtWidgets import (QLineEdit, QPushButton, QApplication, QHBoxLayout
-    , QVBoxLayout, QWidget, QLabel, QProgressBar, QFileDialog)
+from PySide2.QtWidgets import (QApplication, QFileDialog, QHBoxLayout, QLabel,
+                               QLineEdit, QProgressBar, QPushButton,
+                               QVBoxLayout, QWidget)
+
+from dowloader import (get_album_dict, get_all_pic, get_one, get_uid,
+                       get_username)
 
 
 #下载所有相册图片
