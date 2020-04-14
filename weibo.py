@@ -1,6 +1,7 @@
 import re
 import os
 import json
+import subprocess
 import requests
 from math import ceil
 
@@ -18,9 +19,10 @@ header = {
 
 def download(leftover,key,value):
 	url = value+'/large/'+key
-	html = requests.get(url)
-	with open(key, 'wb') as img:
-		img.write(html.content)
+	# html = requests.get(url)
+	# with open(key, 'wb') as img:
+	# 	img.write(html.content)
+	subprocess.run("aria2c -c "+url, shell=True)
 	print(key+'			'+"还剩"+str(leftover-1)+"项。")
 
 
