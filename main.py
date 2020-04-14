@@ -8,7 +8,7 @@ from PySide2.QtWidgets import (QApplication, QFileDialog, QHBoxLayout, QLabel,
                                QLineEdit, QProgressBar, QPushButton,
                                QVBoxLayout, QWidget)
 
-from dowloader import (get_album_dict, get_all_pic, get_one, get_uid,
+from downloader import (get_album_dict, get_all_pic, get_one, get_uid,
                        get_username)
 
 
