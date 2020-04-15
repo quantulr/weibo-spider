@@ -145,8 +145,8 @@ def get_all_pic(thread_obj):
             print('第'+str(num)+'页共有'+str(len(temp))+'张照片！')
             thread_obj.statusSignal.emit(
                 '第'+str(num)+'/'+str(total)+'页共有'+str(len(temp))+'张照片！')
-            for x in temp:
-                pic_dict[x['pic_name']] = x['pic_host']
+            for item in temp:
+                pic_dict[item['pic_name']] = item['pic_host']
         remove_repeat(pic_dict, fold_name)
         leftover = len(pic_dict)
         pic_total = leftover
