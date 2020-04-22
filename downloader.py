@@ -22,7 +22,10 @@ def download(leftover, pic_name, pic_host):
     # html = requests.get(url)
     # with open(pic_name, 'wb') as img:
     # 	img.write(html.content)
-    subprocess.run("aria2c -c "+url, shell=True, check=True)
+    download_process = subprocess.run("aria2c -c "+url, shell=True, check=True,
+                                      capture_output=True, text=True, encoding="utf-8")
+    if download_process.returncode != 0:
+        raise NameError("下载出错！")
     print(pic_name+'			'+"还剩"+str(leftover-1)+"项。")
 
 
@@ -79,7 +82,8 @@ def get_one(thread_obj):
     total = int(json.loads(resp)['data']['total'])
     total = ceil(total/32)
     for num in range(1, total+1):
-        resp = requests.get(url+str(num)+'&type=3', headers=header).content.decode('utf-8')
+        resp = requests.get(url+str(num)+'&type=3',
+                            headers=header).content.decode('utf-8')
         temp = json.loads(resp)['data']['photo_list']
         print('此页共有'+str(len(temp))+'张照片！')
         thread_obj.statusSignal.emit(
